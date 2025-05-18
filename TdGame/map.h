@@ -37,12 +37,14 @@ public:
 				continue; 
 
 			idx_x = -1, idx_y++;
+			tile_map_temp.emplace_back(); // 这里必须要加，不然报空
 			// 更具逗号分割这一行的单元格
 
 			std::string str_tile;
 			std::stringstream str_stream(str_line); // 制作分割字符的stringstream
 			while (std::getline(str_stream, str_tile, ',')) {
 				idx_x++;
+
 				tile_map_temp[idx_y].emplace_back(); // 填充单元格中的元素，因为这是一个二维vector
 				Tile& tile = tile_map_temp[idx_y].back(); // 需要定义一个引用类型，不然tile不能改变数组中的值
 				load_tile_from_string(tile, str_tile);

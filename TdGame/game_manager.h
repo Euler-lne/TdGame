@@ -1,7 +1,9 @@
 ﻿#ifndef _GAME_MANAGER_H_
 #define _GAME_MANAGER_H_
 
-#include "manager.h"
+#include"manager.h"
+#include"config_manager.h"
+#include"resources_manager.h"
 
 #include<SDL.h>
 #include<SDL_image.h>
@@ -59,10 +61,18 @@ protected:
 		Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 		SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1"); //向SDL提供建议，希望显示IME（候选测列表），设置为"1"就显示
 
-		window = SDL_CreateWindow(u8"村庄保卫战", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
+		ConfigManager* config = ConfigManager::instance();
+		init_assert(config->map.load("map.csv"), u8"加载游戏地图失败");
+		init_assert(config->load_game_config("config.json"), u8"加载游戏配置失败");
+		init_assert(config->load_level_config("level.json"), u8"加载关卡配置失败");
+
+		window = SDL_CreateWindow(config->basic_template.window_tile.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+			config->basic_template.window_width, config->basic_template.window_height, SDL_WINDOW_SHOWN);
 		init_assert(window, u8"创建游戏窗口失败！");
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 		init_assert(renderer, u8"创建渲染器失败！");
+
+		init_assert(ResourcesManager::instance()->load_from_file(renderer), u8"加载游戏资源失败");
 	}
 	~GameManager()
 	{
