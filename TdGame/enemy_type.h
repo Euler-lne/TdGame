@@ -3,8 +3,8 @@
 
 enum class EnemyType
 {
-	Slim,KingSlim,
-	Skeleton,Goblin,GoblinPriest
+	Slim, KingSlim,
+	Skeleton, Goblin, GoblinPriest
 };
 
 #endif // !_ENEMY_TYPE_H_

@@ -73,6 +73,8 @@ protected:
 		init_assert(renderer, u8"创建渲染器失败！");
 
 		init_assert(ResourcesManager::instance()->load_from_file(renderer), u8"加载游戏资源失败");
+
+		init_assert(generate_tile_map_texture(), u8"生成瓦片地图纹理失败");
 	}
 	~GameManager()
 	{
@@ -92,6 +94,7 @@ private:
 
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	SDL_Texture* tex_tile_map = nullptr;
 
 private:
 	void init_assert(bool flag, const char* err_msg)
@@ -114,7 +117,83 @@ private:
 
 	void on_render()
 	{
+		static ConfigManager* instance = ConfigManager::instance();
+		static SDL_Rect& rect_dst = instance->rect_tile_map;
+		SDL_RenderCopy(renderer, tex_tile_map, nullptr, &rect_dst);
+	}
 
+	bool generate_tile_map_texture()
+	{
+		// 整个渲染一个图片，在每一帧直接绘图
+		// 创建一个新的画布，用画笔renderer在上面绘制，之后再绘制到 window （再on_render时候）
+		const Map& map = ConfigManager::instance()->map;
+		const TileMap& tile_map = map.get_tile_map();
+		SDL_Rect& rect_tile_map = ConfigManager::instance()->rect_tile_map;  // 这个变量还没有赋值
+		SDL_Texture* tex_tile_set = ResourcesManager::instance()->get_texture_pool().find(ResID::Tex_Tileset)->second;
+
+		int width_tex_tile_set, height_tex_tile_set; // 这获取的是源图片的set
+		SDL_QueryTexture(tex_tile_set, nullptr, nullptr, &width_tex_tile_set, &height_tex_tile_set);
+		int num_tile_single_line = (int)std::ceil((double)width_tex_tile_set / SIZE_TILE);
+
+		int width_tex_tile_map, height_tex_tile_map;
+		width_tex_tile_map = (int)map.get_width() * SIZE_TILE;
+		height_tex_tile_map = (int)map.get_height() * SIZE_TILE;
+
+		tex_tile_map = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, 
+			SDL_TEXTUREACCESS_TARGET, width_tex_tile_map, height_tex_tile_map);
+		if (!tex_tile_map)return false;
+		
+		// 绘制居中
+		ConfigManager *config = ConfigManager::instance();
+		rect_tile_map.x = (config->basic_template.window_width - width_tex_tile_map) / 2;
+		rect_tile_map.y = (config->basic_template.window_height - height_tex_tile_map) / 2;
+		rect_tile_map.w = width_tex_tile_map;
+		rect_tile_map.h = height_tex_tile_map;
+
+		SDL_SetTextureBlendMode(tex_tile_map, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderTarget(renderer, tex_tile_map);
+		for (int y = 0; y < map.get_height(); y++)
+		{
+			for (int x = 0; x < map.get_width(); x++)
+			{
+				const Tile& tile = tile_map[y][x];
+
+				SDL_Rect  rect_dst = {
+					x * SIZE_TILE, y * SIZE_TILE,
+					SIZE_TILE, SIZE_TILE
+				};
+				SDL_Rect rect_src = { // 图片原位值，素材图片
+					(tile.terrian % num_tile_single_line) * SIZE_TILE,
+					(tile.terrian / num_tile_single_line) * SIZE_TILE,
+					SIZE_TILE, SIZE_TILE
+				};
+				SDL_RenderCopy(renderer, tex_tile_set, &rect_src, &rect_dst);
+
+				if (tile.decoration >= 0)
+				{
+					rect_src =
+					{
+						(tile.decoration % num_tile_single_line) * SIZE_TILE,
+						(tile.decoration / num_tile_single_line) * SIZE_TILE,
+						SIZE_TILE, SIZE_TILE
+					};
+					SDL_RenderCopy(renderer, tex_tile_set, &rect_src, &rect_dst);
+				}
+			}
+		}
+		// 绘制房间
+		const SDL_Point& idx_home = map.get_idx_home();
+		SDL_Rect  rect_dst = {
+			idx_home.x * SIZE_TILE, idx_home.y * SIZE_TILE,
+			SIZE_TILE, SIZE_TILE
+		};
+		SDL_RenderCopy(renderer,
+			ResourcesManager::instance()->get_texture_pool().find(ResID::Tex_Home)->second, nullptr,
+			&rect_dst);
+
+		SDL_SetRenderTarget(renderer, nullptr);
+
+		return true;
 	}
 };
 

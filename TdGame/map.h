@@ -90,7 +90,7 @@ public:
 	}
 
 private:
-	TileMap tile_map;
+	TileMap tile_map; // 这个保存的是scv文件内容
 	SDL_Point idx_home = { 0 }; // 保存防守位点对应的下标
 	SpawnerRoutePool spawner_route_pool;
 
