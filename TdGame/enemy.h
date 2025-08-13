@@ -215,6 +215,41 @@ protected:
 	double recover_range = 0;
 	double recover_intensity = 0;
 
+protected:
+	void set_anim(const std::vector<int> idx_list_up, const std::vector<int> idx_list_down,
+		const std::vector<int> idx_list_left, const std::vector<int> idx_list_right,
+		SDL_Texture* tex_normal, SDL_Texture* tex_sketch, int num_h, int num_v=4)
+	{
+		anim_up.set_loop(true); anim_up.set_interval(0.1);
+		anim_up.set_frame_data(tex_normal, num_h, num_v, idx_list_up);
+		anim_down.set_loop(true); anim_down.set_interval(0.1);
+		anim_down.set_frame_data(tex_normal, num_h, num_v, idx_list_down);
+		anim_left.set_loop(true); anim_left.set_interval(0.1);
+		anim_left.set_frame_data(tex_normal, num_h, num_v, idx_list_left);
+		anim_right.set_loop(true); anim_right.set_interval(0.1);
+		anim_right.set_frame_data(tex_normal, num_h, num_v, idx_list_right);
+
+		anim_up_sketch.set_loop(true); anim_up_sketch.set_interval(0.1);
+		anim_up_sketch.set_frame_data(tex_sketch, num_h, num_v, idx_list_up);
+		anim_down_sketch.set_loop(true); anim_down_sketch.set_interval(0.1);
+		anim_down_sketch.set_frame_data(tex_sketch, num_h, num_v, idx_list_down);
+		anim_left_sketch.set_loop(true); anim_left_sketch.set_interval(0.1);
+		anim_left_sketch.set_frame_data(tex_sketch, num_h, num_v, idx_list_left);
+		anim_right_sketch.set_loop(true); anim_right_sketch.set_interval(0.1);
+		anim_right_sketch.set_frame_data(tex_sketch, num_h, num_v, idx_list_right);
+	}
+
+	void set_data(ConfigManager::EnemyTemplate& enemy_template)
+	{
+		max_hp = enemy_template.hp; max_speed = enemy_template.speed;
+		damage = enemy_template.damage; reward_ratio = enemy_template.reward_ratio;
+		recover_intensity = enemy_template.recover_intensity;
+		recover_range = enemy_template.recover_range;
+
+		hp = max_hp, speed = max_speed;
+	}
+
+
 private:
 	Vector2 position;
 	Vector2 velocity;

@@ -59,5 +59,32 @@
     <ClInclude Include="resources_manager.h">
       <Filter>头文件\manager</Filter>
     </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="animation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>头文件\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="slim_enemy.h">
+      <Filter>头文件\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="king_slim_enemy.h">
+      <Filter>头文件\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="skeleton_enemy.h">
+      <Filter>头文件\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="goblin_enemy.h">
+      <Filter>头文件\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="goblin_priest_enemy.h">
+      <Filter>头文件\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
