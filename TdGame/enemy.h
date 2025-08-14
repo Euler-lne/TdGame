@@ -72,6 +72,7 @@ public:
 		point.x = (int)(position.x - size.x / 2); // 从中心点到左上角
 		point.y = (int)(position.y - size.y / 2);
 		anim_current->on_render(renderer, point);
+		// std::cout << "Enemy Pos " << point.x << " " << point.y << std::endl;
 
 		// 生命血条，受伤才画，外面画一个矩形线框，里面画填充矩形
 		if (hp < max_hp)
@@ -80,7 +81,7 @@ public:
 			static const int offset_y = 2;
 			static const SDL_Color color_border = { 116, 185, 124, 255 };
 			static const SDL_Color color_content = { 226, 255, 194, 255 };
-			static SDL_Rect rect
+			SDL_Rect rect
 			{
 				(int)(position.x - size_hp_bar.x / 2), // 水平居中
 				(int)(position.y - size.y / 2 - size_hp_bar.y - offset_y), // 竖直位于头顶并偏移一定位置
@@ -112,6 +113,7 @@ public:
 
 	void decrease_hp(double val)
 	{
+		// std::cout << "Decrease hp " << val << std::endl;
 		hp -= val;
 		if (hp <= 0)
 		{
@@ -186,7 +188,7 @@ public:
 		return recover_intensity;
 	}
 
-	bool can_move() const
+	bool can_remove() const
 	{
 		return !is_valid;
 	}
@@ -291,3 +293,24 @@ private:
 
 #endif // !_ENEMY_H_
 
+/*
+最佳实践总结
+对象特定数据 → 使用成员变量（非 static）
+
+类级别共享数据 → 使用类静态成员
+
+函数调用间保持状态 → 使用函数内 static
+
+临时计算/渲染 → 使用普通局部变量
+
+文件私有全局 → 使用文件作用域 static
+
+在游戏开发中尤其要注意：
+
+渲染相关的坐标/尺寸数据永远不要用 static
+
+每个游戏对象的状态数据永远不要用 static
+
+性能敏感处避免 static 变量（可能引起缓存问题）
+
+*/

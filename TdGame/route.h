@@ -2,6 +2,7 @@
 #define _ROUTE_H_
 
 #include"tile.h"
+#include <iostream>
 
 #include<SDL.h>
 
@@ -13,6 +14,8 @@ public:
 	Route() = default;
 	Route(TileMap& map,const SDL_Point& idx_oringe)
 	{
+		//std::cout << "Start Route Generate" << std::endl;
+		//std::cout << "Origin " << idx_oringe.x << " " << idx_oringe.y << std::endl;
 		size_t width_map = map[0].size(), height_map = map.size();
 		SDL_Point idx_next = idx_oringe;
 		while (true) {
@@ -24,6 +27,7 @@ public:
 				idx_list.push_back(idx_next);
 
 			bool is_next_dir_exist = true;
+
 			const Tile& tile = map[idx_next.y][idx_next.x];
 			if (tile.special_flag == 0) break; // 遇到房屋
 
@@ -44,7 +48,9 @@ public:
 				is_next_dir_exist = false;
 				break;
 			}
-			if (is_next_dir_exist) // 走到头了，并且没有找到房屋
+			//std::cout << "Next Direction " << (int)tile.direction << std::endl;
+			//std::cout << "Next " << idx_next.x << " " << idx_next.y << std::endl;
+			if (!is_next_dir_exist) // 走到头了，并且没有找到房屋
 				break;
 		}
 	}

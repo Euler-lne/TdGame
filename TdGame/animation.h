@@ -76,7 +76,8 @@ public:
 
 	void on_render(SDL_Renderer* renderer, const SDL_Point& pos_dst, double angle = 0) const
 	{
-		static SDL_Rect rect_dst
+		// 静态变量导致所有敌人共享同一个渲染位置。移除 static 后，每个敌人将使用自己的位置数据进行渲染，解决位置不更新的问题。
+		SDL_Rect rect_dst
 		{
 			pos_dst.x, pos_dst.y,
 			width_frame, height_frame 
