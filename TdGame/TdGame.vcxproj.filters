@@ -25,6 +25,9 @@
     <Filter Include="头文件\bullet">
       <UniqueIdentifier>{3d5610b3-3067-4f6a-92e7-4d6a4123ffe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\tower">
+      <UniqueIdentifier>{998b0665-5caa-4531-a339-9dfdb70b2e6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -112,6 +115,21 @@
     </ClInclude>
     <ClInclude Include="shell_bullet.h">
       <Filter>头文件\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet_manager.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet_type.h">
+      <Filter>头文件\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="tower.h">
+      <Filter>头文件\tower</Filter>
+    </ClInclude>
+    <ClInclude Include="tower_type.h">
+      <Filter>头文件\tower</Filter>
+    </ClInclude>
+    <ClInclude Include="facing.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
