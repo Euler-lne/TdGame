@@ -28,6 +28,12 @@
     <Filter Include="头文件\tower">
       <UniqueIdentifier>{998b0665-5caa-4531-a339-9dfdb70b2e6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\ui">
+      <UniqueIdentifier>{63ba3bd4-4669-48e4-bcf5-dca5d9b90e80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ui\panel">
+      <UniqueIdentifier>{edb84a48-8029-43db-97db-90087ba5c07d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -130,6 +136,33 @@
     </ClInclude>
     <ClInclude Include="facing.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="archer_tower.h">
+      <Filter>头文件\tower</Filter>
+    </ClInclude>
+    <ClInclude Include="axeman_tower.h">
+      <Filter>头文件\tower</Filter>
+    </ClInclude>
+    <ClInclude Include="gunner_tower.h">
+      <Filter>头文件\tower</Filter>
+    </ClInclude>
+    <ClInclude Include="tower_manager.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="coin_prop.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="status_bar.h">
+      <Filter>头文件\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="panel.h">
+      <Filter>头文件\ui\panel</Filter>
+    </ClInclude>
+    <ClInclude Include="palce_panel.h">
+      <Filter>头文件\ui\panel</Filter>
+    </ClInclude>
+    <ClInclude Include="upgrade_panel.h">
+      <Filter>头文件\ui\panel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

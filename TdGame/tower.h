@@ -213,7 +213,7 @@ private:
 		{
 		case Archer:
 			interval = instance->archer_template.interval[instance->level_archer];
-			damage = instance->archer_template.interval[instance->level_archer];
+			damage = instance->archer_template.damage[instance->level_archer];
 			switch (rand() % 2)
 			{
 			case 0:
@@ -226,12 +226,12 @@ private:
 			break;
 		case Axeman:
 			interval = instance->axeman_template.interval[instance->level_axeman];
-			damage = instance->axeman_template.interval[instance->level_axeman];
+			damage = instance->axeman_template.damage[instance->level_axeman];
 			Mix_PlayChannel(-1, sound_pool.find(ResID::Sound_AxeFire)->second, 0);
 			break;
 		case Gunner:
 			interval = instance->gunner_template.interval[instance->level_gunner];
-			damage = instance->gunner_template.interval[instance->level_gunner];
+			damage = instance->gunner_template.damage[instance->level_gunner];
 			Mix_PlayChannel(-1, sound_pool.find(ResID::Sound_ShellFire)->second, 0);
 			break;
 		}

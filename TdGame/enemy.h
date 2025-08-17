@@ -247,8 +247,10 @@ protected:
 		damage = enemy_template.damage; reward_ratio = enemy_template.reward_ratio;
 		recover_intensity = enemy_template.recover_intensity;
 		recover_range = enemy_template.recover_range;
-
+		
 		hp = max_hp, speed = max_speed;
+		timer_skill.set_wait_time(enemy_template.recover_interval);
+		timer_skill.restart();
 	}
 
 
