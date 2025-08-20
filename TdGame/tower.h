@@ -181,7 +181,7 @@ private:
 			break;
 		}
 
-		EnemyManager::EnemyList& enemy_list = EnemyManager::instance()->get_enenmy_list();
+		EnemyManager::EnemyList& enemy_list = EnemyManager::instance()->get_enemy_list();
 		for (Enemy* enemy : enemy_list)
 		{
 			if ((enemy->get_position() - position).length() <= view_range * SIZE_TILE)

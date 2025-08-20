@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="..\thirdparty\cJson\cJSON.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="player_manager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />

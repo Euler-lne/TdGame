@@ -111,7 +111,7 @@ public:
 		return enemy_list.empty();
 	}
 
-	EnemyManager::EnemyList& get_enenmy_list()
+	EnemyManager::EnemyList& get_enemy_list()
 	{
 		return enemy_list;
 	}

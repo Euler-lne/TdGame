@@ -42,6 +42,9 @@
     <ClCompile Include="..\thirdparty\cJson\cJSON.c">
       <Filter>源文件\cJSON</Filter>
     </ClCompile>
+    <ClCompile Include="player_manager.h">
+      <Filter>头文件\manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_manager.h">

@@ -13,6 +13,7 @@
 #include"panel.h"
 #include"palce_panel.h"
 #include"upgrade_panel.h"
+#include "player_manager.h"
 
 
 #include<SDL.h>
@@ -166,6 +167,7 @@ private:
 		{
 			upgrade_panel->on_input(event);
 			place_panel->on_input(event);
+			PlayerManager::instance()->on_input(event);
 		}
 	}
 
@@ -183,6 +185,7 @@ private:
 			BulletManager::instance()->on_update(delta);
 			TowerManager::instance()->on_update(delta);
 			CoinManager::instance()->on_update(delta);
+			PlayerManager::instance()->on_update(delta);
 
 		}
 	}
@@ -198,6 +201,8 @@ private:
 		BulletManager::instance()->on_render(renderer);
 		TowerManager::instance()->on_render(renderer);
 		CoinManager::instance()->on_render(renderer);
+		PlayerManager::instance()->on_render(renderer);
+		
 
 		if (!instance->is_game_over)  // 要绘制在最上方
 		{
